@@ -1,0 +1,43 @@
+#%Module1.0#####################################################################
+##
+## modules modulefile
+##
+## NEMODRAK_3.6_trunk
+##
+
+################################################################################
+
+proc ModulesHelp { } {
+        global version
+
+        puts stderr "\t------------------------------------------------"
+        puts stderr "\tLoading the NEMODRAK $version environment "
+        puts stderr "\t------------------------------------------------\n"
+}
+
+################################################################################
+conflict NEMODRAK
+
+# for Tcl script use only
+set             version         4.0
+set             alter_version   3.6_trunk
+set             base_path       /scratch/cnt0024/hmg2840/albert7a/DEV/NEMODRAK_$version
+set             alter_path      /scratch/cnt0024/hmg2840/albert7a/DEV/NEMODRAK_$alter_version
+setenv          HOMEDCM         $base_path
+setenv          HOMEDCM2        $alter_path
+# REFDIR is the reference NEMO  directory
+setenv          REFDIR          ${base_path}/NEMOREF
+setenv          REFDIR2         ${alter_path}/NEMOREF
+# CUSDIR is the DRAKKAR customized directory
+setenv          CUSDIR          ${base_path}/DRAKKAR
+setenv          CUSDIR2         ${alter_path}/DRAKKAR
+
+prepend-path    PATH            ${base_path}/TOOLS
+
+#
+if {[module-info mode load]==1} {
+    ##########################
+    # MESSAGE INFORMATION
+    ##########################
+      ModulesHelp
+}

@@ -1,0 +1,78 @@
+!-----------------------------------------------------------------------
+&nambdy        !  unstructured open boundaries                          ("key_bdy")
+!-----------------------------------------------------------------------
+    nb_bdy         = 2                    !  number of open boundary sets
+    ln_coords_file = .false.,.false.               !  =T : read bdy coordinates from file
+    cn_coords_file = 'coordinates.bdy.nc','' !  bdy coordinates files
+    ln_mask_file = .false.                !  =T : read mask from file
+    cn_mask_file = ''                     !  name of mask file (if ln_mask_file=.TRUE.)
+    cn_dyn2d       = 'frs','frs'          !
+    nn_dyn2d_dta   =  1,1                   !  = 0, bdy data are equal to the initial state
+                                          !  = 1, bdy data are read in 'bdydata   .nc' files
+                                          !  = 2, use tidal harmonic forcing data from files
+                                          !  = 3, use external data AND tidal harmonic forcing
+    cn_dyn3d      =  'frs','frs'          !
+    nn_dyn3d_dta  =  1,1             !  = 0, bdy data are equal to the initial state
+                           !  = 1, bdy data are read in 'bdydata   .nc' files
+    cn_tra        =  'frs','frs'          !
+    nn_tra_dta    =  1,1             !  = 0, bdy data are equal to the initial state
+                           !  = 1, bdy data are read in 'bdydata   .nc' files
+    cn_ice_lim      =  'none','none'      !
+    nn_ice_lim_dta  =  0,0           !  = 0, bdy data are equal to the initial state
+                                          !  = 1, bdy data are read in 'bdydata   .nc' files
+    rn_ice_tem      = 270. ,270.          !  lim3 only: arbitrary temperature of incoming sea ice
+    rn_ice_sal      = 10.  , 10.          !  lim3 only:      --   salinity           --
+    rn_ice_age      = 30.  ,30.           !  lim3 only:      --   age                --
+
+    ln_tra_dmp    =.false.,.false.        !  open boudaries conditions for tracers
+    ln_dyn3d_dmp  =.false.,.false.        !  open boundary condition for baroclinic velocities
+    rn_time_dmp   =  10.,10.              ! Damping time scale in days
+    rn_time_dmp_out =  10.,10.            ! Outflow damping time scale
+    nn_rimwidth  = 1,1                    !  width of the relaxation zone
+    ln_vol     = .true.                   !  total volume correction (see nn_volctl parameter)
+    nn_volctl  = 0                        !  = 0, the total water flux across open boundaries is zero
+/
+!-----------------------------------------------------------------------
+&nambdy_index_S
+    ctypebdy = 'S'
+    nbdyind  =  2
+    nbdybeg  = 698 
+    nbdyend  = 1329
+/
+&nambdy_index_N
+    ctypebdy = 'N'
+    nbdyind  = 1566
+    nbdybeg  = 500
+    nbdyend  = 1440
+/
+!-----------------------------------------------------------------------
+&nambdy_dta      !  open boundaries - external data           ("key_bdy")
+!-----------------------------------------------------------------------
+!              !  file name      ! frequency (hours) ! variable   ! time interp.   !  clim   ! 'yearly'/ ! weights  ! rotation ! land/sea mask !
+!              !                 !  (if <0  months)  !   name     !   (logical)    !  (T/F ) ! 'monthly' ! filename ! pairing  ! filename      !
+   bn_ssh =     'bdy_NACHOS12-EORCA12_south_SSH' ,  -1     , 'sossheig' ,     .true.     , .false. ,  'yearly'  ,    ''    ,   ''     , ''
+   bn_u2d =     'bdy_NACHOS12-EORCA12_south_U'  ,  -1      , 'vobtcrtx' ,     .true.     , .false. ,  'yearly'  ,    ''    ,   ''     , ''
+   bn_v2d =     'bdy_NACHOS12-EORCA12_south_V'  ,  -1      , 'vobtcrty' ,     .true.     , .false. ,  'yearly'  ,    ''    ,   ''     , ''
+   bn_u3d  =    'bdy_NACHOS12-EORCA12_south_U'  ,  -1      , 'vozocrtx' ,     .true.     , .false. ,  'yearly'  ,    ''    ,   ''     , ''
+   bn_v3d  =    'bdy_NACHOS12-EORCA12_south_V'  ,  -1      , 'vomecrty' ,     .true.     , .false. ,  'yearly'  ,    ''    ,   ''     , ''
+   bn_tem  =    'bdy_NACHOS12-EORCA12_south_TS' ,  -1      , 'votemper' ,     .true.     , .false. ,  'yearly'  ,    ''    ,   ''     , ''
+   bn_sal  =    'bdy_NACHOS12-EORCA12_south_TS' ,  -1      , 'vosaline' ,     .true.     , .false. ,  'yearly'  ,    ''    ,   ''     , ''
+   cn_dir  =    './'
+   ln_full_vel = .true.
+/
+!-----------------------------------------------------------------------
+&nambdy_dta      !  open boundaries - external data           ("key_bdy")
+!-----------------------------------------------------------------------
+!              !  file name      ! frequency (hours) ! variable   ! time interp.   !  clim   ! 'yearly'/ ! weights  ! rotation ! land/sea mask !
+!              !                 !  (if <0  months)  !   name     !   (logical)    !  (T/F ) ! 'monthly' ! filename ! pairing  ! filename      !
+   bn_ssh =     'bdy_NACHOS12-EORCA12_north_SSH' ,  -1     , 'sossheig' ,     .true.     , .false. ,  'yearly'  ,    ''    ,   ''     , ''
+   bn_u2d =     'bdy_NACHOS12-EORCA12_north_U'  ,  -1      , 'vobtcrtx' ,     .true.     , .false. ,  'yearly'  ,    ''    ,   ''     , ''
+   bn_v2d =     'bdy_NACHOS12-EORCA12_north_V'  ,  -1      , 'vobtcrty' ,     .true.     , .false. ,  'yearly'  ,    ''    ,   ''     , ''
+   bn_u3d  =    'bdy_NACHOS12-EORCA12_north_U'  ,  -1      , 'vozocrtx' ,     .true.     , .false. ,  'yearly'  ,    ''    ,   ''     , ''
+   bn_v3d  =    'bdy_NACHOS12-EORCA12_north_V'  ,  -1      , 'vomecrty' ,     .true.     , .false. ,  'yearly'  ,    ''    ,   ''     , ''
+   bn_tem  =    'bdy_NACHOS12-EORCA12_north_TS' ,  -1      , 'votemper' ,     .true.     , .false. ,  'yearly'  ,    ''    ,   ''     , ''
+   bn_sal  =    'bdy_NACHOS12-EORCA12_north_TS' ,  -1      , 'vosaline' ,     .true.     , .false. ,  'yearly'  ,    ''    ,   ''     , ''
+
+   cn_dir  =    './'
+   ln_full_vel = .true.
+/
